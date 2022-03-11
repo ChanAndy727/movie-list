@@ -6,24 +6,36 @@ class Search extends React.Component {
     this.state = {
       value: '',
     };
+    this.handleInputChange = this.handleInputChange.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange(e) {
-    this.props.handleSearchInputChange(e.target.value);
     this.setState({
       value: e.target.value
     });
   }
 
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.searchMovies(this.state.value);
+  }
+
+
+
   render() {
     return (
-      <input
-        className='form-control'
-        type='text'
-        placeholder='Search...'
-        value={this.state.value}
-        onChange={this.handleInputChange.bind(this)}
-      />
+      <form onSubmit={this.handleSubmit}>
+        <input
+          type='text'
+          placeholder='Search...'
+          value={this.state.value}
+          onChange={this.handleInputChange}
+        />
+        <input type='submit' value='Go!!'></input>
+      </form>
     )
   }
 
